@@ -1,0 +1,46 @@
+version: '3'
+services:
+  app:
+    build: 
+        context: .
+        dockerfile: DockerFile #find docker file on root folder and you can customize configuration / installtion packge
+    container_name: app_laravel
+    restart: unless-stopped
+    tty: true
+    working_dir: /var/www
+    environment:
+      - TZ=Asia/Jakarta
+    volumes:
+      - ./www:/var/www
+      - ./php:/usr/local/etc/php/conf.d
+    networks:
+      - app-network
+      - mariadb
+  
+  web_server:
+    image: nginx:alpine #use nginx latest on docker hub
+    container_name: web_server
+    restart: unless-stopped
+    tty: true
+    ports:
+      - 80:80
+      - 81:81
+      - 82:82
+      - 83:83
+      - 84:84
+      - 85:85
+    volumes:
+      - ./www:/var/www
+      - ./nginx:/etc/nginx/conf.d
+      - ./logs:/var/log/nginx
+    depends_on:
+      - app
+    networks:
+      - app-network
+      - mariadb # call from section network
+networks:
+  app-network:
+    driver: bridge
+  mariadb:
+    name: mariadb_db #name network another container
+    external: true  # required because you're use network for another container
