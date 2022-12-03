@@ -1,0 +1,35 @@
+version: '3'
+services:
+  mariadb:
+    image: mariadb:10.8.3
+    container_name: mariadb
+    restart: always
+    ports:
+      - 3306:3306
+    volumes:
+      - ./db_data:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=password
+      - MYSQL_PASSWORD=password
+      - MYSQL_user=users
+    networks:
+      - db
+  
+  phpmyadmin:
+    image: phpmyadmin:latest
+    restart: unless-stopped
+    container_name: phpmyadmin
+    ports:
+      - 90:80
+    environment:
+      - PMA_HOST=mariadb
+      - PMA_PORT=3306
+      - PMA_USER=root
+      - PMA_PASSWORD=password
+      - UPLOAD_LIMIT=500M
+    networks:
+      - db
+
+networks:
+  db:
+    driver: bridge
