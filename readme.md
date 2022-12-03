@@ -1,4 +1,4 @@
-# Welcome to Docker Compose Skeleton
+# Welcome to Docker Compose Skeleton PHP & NGINX
 
 The skeleton docker compose for development / production.
 You can customize for your own.
@@ -11,7 +11,7 @@ git clone https://github.com/agusprasetyobudi/docker-skeleton.git
 ```
 Switch branch to use skeleton
 ```bash
-git chekcout <branch name>
+git chekcout PHP-NGINX
 ```
 
 ## Usage
