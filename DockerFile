@@ -23,7 +23,7 @@ RUN docker-php-ext-install pdo pdo_pgsql pgsql opcache
 RUN docker-php-ext-install mbstring mysqli pdo_mysql exif pcntl bcmath\
     && docker-php-ext-configure gd --with-freetype --with-jpeg
 
-RUN curl -sS https://getcomposer.org/installer | php -- --intall-dir-/usr/local/bin --filename=composer
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
 ARG NODE_VERSION=16.17.1
 ARG NODE_PACKAGE=node-v$NODE_VERSION-linux-x64
